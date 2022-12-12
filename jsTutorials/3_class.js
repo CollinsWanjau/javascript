@@ -5,7 +5,10 @@
 // A class created with  a class inherits all methods from another class
 //
 // Create a class named "model" which will inherit the methods from "Car"
+// 
+// the super() refers to the parent class
 //
+// Inheritance is useful for code reusability: reuse properties and methods of an existing class when you create a new class
 class Car {
 	constructor(brand) {
 		 this.carName = brand;
