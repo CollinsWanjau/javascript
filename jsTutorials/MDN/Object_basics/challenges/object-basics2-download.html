@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Object basics: Task 2</title>
+    <style>
+      p {
+        color: purple;
+        margin: 0.5em 0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+    </style>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+
+  <body>
+
+    <section class="preview">
+
+
+
+    </section>
+
+  </body>
+  <script>
+    let bandInfo;
+
+    // Add your code here
+    band = {
+              name: 'Paramore';
+              nationality: 'UK';
+              genre: 'Rock';
+              members: 3;
+              formed: 2004;
+              active: true;
+              split: false;
+              albums: [
+                {
+                          name: 'This is why',
+                          released: 2023
+                },
+                {
+                          name: 'Paramore',
+                          released: 2013
+                },
+                {
+                          name: 'Riot'
+                          released: 2007
+                }
+               ]
+          };
+      const firstAlbum = band.albums[0];
+      const bandInfo = `This band ${band.name} were a ${band.nationality} ${band.style} band active from ${band.formed}.
+     They released their first album, ${firstAlbum.name}, in ${firstAlbum.released}.`;
+
+    // Don't edit the code below here!
+
+    const section = document.querySelector('section');
+    let para1 = document.createElement('p');
+    para1.textContent = bandInfo;
+    section.appendChild(para1);
+  </script>
+
+</html>
