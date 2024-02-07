@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-function MyButton() {
+function MyButton({ count, onClick}) {
+    
     return (
-        <button>
-            I'm a button
+        <button onClick={onClick}>
+            Clicked {count} times
         </button>
     )
 }
