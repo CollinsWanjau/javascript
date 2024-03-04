@@ -32,6 +32,13 @@ const monsterName = document.querySelector('#monsterName')
 
 const monsterHealthText = document.querySelector('#monsterHealth')
 
+const weapons = [
+    { name: "stick", power: 5 },
+    { name: "dagger", power: 30 },
+    { name: "claw hammer", power: 50 },
+    { name: "sword", power: 100 }
+]
+
 const locations = [
     {
         name: "town square",
@@ -91,9 +98,20 @@ function fightDragon() {
     console.log('Fighting dragon.')
 }
 
+
+/**
+ * Decreases the player's gold by 10 and increases their health by 10.
+ * Updates the gold and health text elements accordingly.
+ */
 function buyHealth() {
-    gold -= 10
-    health += 10
+    if (gold >= 10) {
+        gold -= 10
+        health += 10
+        goldText.innerText = gold;
+        healthText.innerText = health;
+    } else {
+        text.innerText = "You do not have enough gold to buy health."
+    }
 }
 
 function buyWeapon() {
