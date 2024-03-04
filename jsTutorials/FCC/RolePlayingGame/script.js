@@ -4,6 +4,7 @@ let health = 100;
 
 let gold = 50;
 
+// corresponds to an index in the weapons array.
 let currentWeapon = 0;
 
 let fighting;
@@ -114,8 +115,18 @@ function buyHealth() {
     }
 }
 
+/**
+ * Buys a weapon if the player has enough gold.
+ */
 function buyWeapon() {
-
+    if (gold >= 30) {
+        gold -= 30;
+        currentWeapon++
+        goldText.innerText = gold
+        // tell the player what weapon they bought
+        let newWeapon = weapons[currentWeapon].name
+        text.innerText = 'You now have a ' + newWeapon + '.'
+    }
 }
 
 function fightSlime() {
@@ -123,5 +134,5 @@ function fightSlime() {
 }
 
 function fightBeast() {
-
+    // Your code here
 }
