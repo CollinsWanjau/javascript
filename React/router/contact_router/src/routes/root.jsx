@@ -1,11 +1,21 @@
-import { Outlet, Link} from "react-router-dom";
+import { 
+    Outlet,
+    Link,
+    useLoaderData,
+} from "react-router-dom";
 import { getContacts } from "../contacts";
 
+{/* create and export a loader function */}
 export async function loader() {
     const contacts = await getContacts()
     return { contacts }
 }
 export default function Root() {
+  {/* Acess and render the data using useLoaderData
+    * A hook used within a route component to access the data fecthed by the loader
+    * function asscociated  with the current route.
+*/}
+  const { contacts } = useLoaderData()
   return (
     <>
       <div id="sidebar">
