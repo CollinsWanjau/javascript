@@ -79,7 +79,7 @@ const locations = [
     {
         name: "kill monster",
         "button text": ["Go to town square", "Go to town square", "Go to town square"],
-        "button functions": [goTown, goTown, goTown],
+        "button functions": [goTown, goTown, easterEgg],
         text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.'
     },
     {
@@ -93,7 +93,12 @@ const locations = [
         "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
         "button functions": [restart, restart, restart],
         text: "You defeat the dragon! YOU WIN THE GAME! &#x1F389;"
-
+    },
+    {
+        name: "easter egg",
+        "button text": ["2", "8", "Go to town square?"],
+        "button functions": [pickTwo, pickEight, goTown],
+        "text": "You find a secret game. Pick a number above. Ten numbers will be randomly chosen between 0 and 10. If the number you choose matches one of the random numbers, you win!"
     }
 ]
 
@@ -250,12 +255,17 @@ function goFight() {
  * Triggers the appropriate game outcome (win, lose, or defeat monster) based on the health values.
  */
 function attack() {
+    // Monster attacks player
     text.innerText = 'The ' + monsters[fighting].name + ' attacks.'
+    
     text.innerText += " You attack it with your " + weapons[currentWeapon].name +  "."
     health -= getMonsterAttackValue(monsters[fighting].level)
+    if (health < 0) {
+        health = 0      // Prevent health from going below 0
+    }
     if (isMonsterHit()) {
         // Calculate monster health damage based on attack and experience points
-        monsterHealth -= (weapons[currentWeapon].power + Math.floor(Math.round() * xp) + 1)
+        monsterHealth -= (weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1)
     } else {
        text.innerText += " You miss."
     }
@@ -273,8 +283,9 @@ function attack() {
         }
     }
     // there should be a chance that the player's weapon breaks.
-    if (Math.random() <= .1) {
-        text.innerText += " Your <weapon>"
+    if (Math.random() <= .1 && inventory.length !== 1) {
+        text.innerText += " Your " + inventory.pop() + " breaks."
+        currentWeapon--
     }
 }
 
@@ -344,4 +355,39 @@ function restart() {
     healthText.innerText = health
     xpText.innerText = xp
     goTown()
+}
+
+function easterEgg() {
+    update(locations[7])
+}
+
+function pick(guess) {
+    const numbers = []
+    while(numbers.length < 10) {
+        numbers.push(Math.floor(Math.random() * 11))
+    }
+    text.innerText = "You picked " + guess + ". Here are the random numbers:\n"
+    for (let i = 0; i < 10; i++) {
+        text.innerText += numbers[i] + '\n'
+    }
+    if (numbers.includes(guess)) {
+        text.innerText += "Right! You win 20 gold!"
+        gold += 20
+        goldText.innerText = gold
+    } else {
+        text.innerText += "Wrong! You lose 10 health!"
+        health -= 10
+        healthText.innerText = health
+        if (health < 0) {
+            lose()
+        }
+    }
+}
+
+function pickTwo() {
+    pick(2)
+}
+
+function pickEight() {
+    pick(8)
 }
