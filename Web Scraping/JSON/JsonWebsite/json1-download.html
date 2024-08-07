@@ -13,7 +13,7 @@
         box-sizing: border-box;
       }
     </style>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="../styles.css" />
   </head>
 
   <body>
@@ -44,26 +44,30 @@
       let female = 0;
 
       // Add your code here
-      const obj = JSON.parse(catString)
+      const cats = JSON.parse(catString);
 
-      // Create an array of mother cat Names
-      const motherNames = obj.map(cat => name);
+      for (let i = 0; i < cats.length; i++) {
+        if (i == cats.length - 1) {
+          motherInfo += `and, ${cats[i].name}`;
+        } else {
+          motherInfo += `${cats[i].name}, `;
+        }
 
-      // outer loop
-      obj.foreach(cat, index) {
-        let motherInfo += `cat.name`;
-
-        for (const kittenName of obj) {
-          let kittenInfo = `Kittens: ${obj["kittens"]["name"]}`
+        for (let j = 0; j < cats[i].kittens.length; j++) {
+          total++;
+          if (cats[i].kittens[j].gender === "m") {
+            male++;
+          } else {
+            female++;
+          }
         }
       }
 
+      kittenInfo = `There are ${total} kittens in total, ${male} male and ${female} females`
+
       /*
       * You'll probably want to use an outer loop to loop through the cats and add their names to the motherInfo variable string
-      * and an inner loop to loop through all the kittens, add up the total of all/male/female kittens.
-      * and add0 0those details to the kittenInfo variable string
       */
-      for (const catName of mo)
       // Don't edit the code below here!
 
       para1.textContent = motherInfo;
