@@ -1,3 +1,4 @@
+// /* import pageScraper from './pageScraper' */
 const pageScraper = require('./pageScraper');
 // This part controls the scraping process.
 // It uses the browser instance to control the pageScraper.js file, which is
@@ -9,6 +10,8 @@ async function scrapeAll (browserInstance) {
     const scrapedData = [];
     // Call the scraper for different set of books to be scraped
     scrapedData.Travel = await pageScraper.scraper(browser, 'Travel');
+    scrapedData.HistoricalFiction = await pageScraper.scraper(browser, 'Historical Fiction')
+    scrapedData.Mystery = await pageScraper.scraper(browser, 'Mystery')
     await browser.close();
     console.log(scrapedData);
   } catch (err) {
